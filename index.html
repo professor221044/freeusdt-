@@ -1,190 +1,783 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Earn Free USDT!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoReward - Earn Free USDT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        * {
             margin: 0;
             padding: 0;
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #e0e0e0;
+            min-height: 100vh;
             padding: 20px;
-            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(19, 30, 48, 0.85);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(47, 128, 237, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(47, 128, 237, 0.5);
+        }
+        
+        .header h1 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-size: 32px;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        .balance-card {
+            background: linear-gradient(135deg, #1a2a3a, #16222d);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(47, 128, 237, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00bcd4, #3d5afe);
+        }
+        
+        .balance-title {
+            color: #aaa;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .balance-amount {
+            font-size: 42px;
+            font-weight: bold;
+            color: #4fc3f7;
+            margin: 15px 0;
+            text-shadow: 0 0 15px rgba(79, 195, 247, 0.7);
+        }
+        
+        .balance-sub {
+            color: #aaa;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .offer-card {
+            background: rgba(30, 48, 77, 0.6);
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            position: relative;
-            margin-top: 20px;
-        }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
-        }
-        .balance {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
+            padding: 20px;
             margin-bottom: 20px;
-        }
-        .ad-container {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: #f9f9f9;
             position: relative;
+            border: 1px solid rgba(47, 128, 237, 0.2);
         }
-        .ad-label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-        .ad-content {
-            height: 100px;
-            background-color: #e9e9e9;
+        
+        .offer-title {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-size: 22px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
+            gap: 10px;
         }
-        .popup-ad {
-            position: fixed;
-            width: 300px;
-            height: 200px;
-            background-color: white;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            z-index: 100;
-            padding: 10px;
+        
+        .offer-title i {
+            font-size: 24px;
         }
-        .popup-close {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            width: 15px;
-            height: 15px;
-            font-size: 10px;
-            line-height: 15px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 50%;
+        
+        .progress-container {
+            background-color: rgba(18, 26, 43, 0.7);
+            border-radius: 10px;
+            height: 12px;
+            margin: 20px 0;
+            overflow: hidden;
         }
-        .claim-btn {
-            background-color: #4CAF50;
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #00c853, #00bcd4);
+            height: 100%;
+            width: 65%;
+            border-radius: 10px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00c853, #00bcd4);
             color: white;
             border: none;
             padding: 15px 30px;
             font-size: 18px;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
             display: block;
-            margin: 20px auto;
-            width: 200px;
+            margin: 25px auto;
+            width: 240px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 200, 200, 0.3);
+            position: relative;
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 200, 200, 0.5);
+        }
+        
+        .btn:disabled {
+            background: linear-gradient(135deg, #555, #777);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-withdraw {
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+        }
+        
+        .btn-withdraw:hover {
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.5);
+        }
+        
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .crypto-popup {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 100, 255, 0.7);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        
+        .popup-overlay.active .crypto-popup {
+            transform: translateY(0);
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            line-height: 22px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 101;
+        }
+        
+        .popup-content {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .popup-title {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .popup-icon {
+            font-size: 50px;
+            color: #00c853;
+            margin: 20px 0;
+        }
+        
+        .withdraw-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            background: rgba(10, 20, 40, 0.5);
+            border: 1px solid rgba(47, 128, 237, 0.5);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #4fc3f7;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .info-text {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 15px;
             text-align: center;
         }
+        
+        .cooldown-timer {
+            color: #ff9800;
+            font-size: 16px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .ad-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .ad-box {
+            background: linear-gradient(135deg, #1a2a3a, #16222d);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(47, 128, 237, 0.3);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-box::after {
+            content: "AD";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .ad-icon {
+            font-size: 28px;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        
+        .ad-text {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
         .ad-overlay {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            z-index: 10;
+            bottom: 100px;
+            right: 30px;
+            width: 250px;
+            background: linear-gradient(135deg, #d32f2f, #f57c00);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(255, 87, 34, 0.5);
+            z-index: 99;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 87, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
+        }
+        
+        .ad-overlay-close {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            line-height: 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 101;
+        }
+        
+        .ad-overlay-content {
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(47, 128, 237, 0.3);
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .floating-coin {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(20px) rotate(90deg); }
+            50% { transform: translateY(0) translateX(40px) rotate(180deg); }
+            75% { transform: translateY(20px) translateX(20px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(30, 48, 77, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.4s ease;
+            z-index: 2000;
+            border-left: 4px solid #4fc3f7;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .balance-amount {
+                font-size: 32px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .ad-container {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating coins background -->
+    <div class="floating-coin" style="top: 10%; left: 5%;">₿</div>
+    <div class="floating-coin" style="top: 20%; left: 80%;">Ξ</div>
+    <div class="floating-coin" style="top: 70%; left: 15%;">$</div>
+    <div class="floating-coin" style="top: 50%; left: 90%;">₿</div>
+    <div class="floating-coin" style="top: 85%; left: 70%;">$</div>
+    
     <div class="container">
-        <h1>Earn Free USDT!</h1>
-        <div class="balance">
-            Your Balance: 0,000 COIN
+        <div class="header">
+            <h1><i class="fas fa-coins"></i> CryptoReward</h1>
+            <p>Earn free USDT by completing faucets</p>
         </div>
         
-        <div class="ad-container">  
-    <div class="ad-label">Advertisement</div>  
-    <div class="ad-content">
-        <script type='text/javascript' src='//pl27296121.profitableratecpm.com/aa/60/ad/aa60adbd94510b41634b2c3979c8f6df.js'></script>
-    </div>  
+        <div class="balance-card">
+            <div class="balance-title">Your Current Balance</div>
+            <div class="balance-amount" id="balance">0.00</div>
+            <div class="balance-sub">USDT ≈ $0.00 USD</div>
         </div>
         
-        <div class="ad-container">
-    <div class="ad-label">Advertisement</div>
-    <div class="ad-content">
-        <script async="async" data-cfasync="false" src="//pl27296521.profitableratecpm.com/7ee930ab7c180594a8d778ed1c7f1050/invoke.js"></script>
-        <div id="container-7ee930ab7c180594a8d778ed1c7f1050"></div>
-    </div>
+        <div class="offer-card">
+            <div class="offer-title"><i class="fas fa-shield-alt"></i> Daily Verification Reward</div>
+            <p>Complete CAPTCHA verification to claim 0.01 USDT ($0.01 USD)</p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p>72% of users completed this offer today</p>
         </div>
         
-        <div class="ad-container">
-    <div class="ad-label">Advertisement</div>
-    <div class="ad-content">
-        <script async="async" data-cfasync="false" src="//pl27296521.profitableratecpm.com/7ee930ab7c180594a8d778ed1c7f1050/invoke.js"></script>
-        <div id="container-7ee930ab7c180594a8d778ed1c7f1050"></div>
-    </div>
-        </div>
+        <button id="claimBtn" class="btn">Verify & Claim 0.01 USDT</button>
+        <button id="withdrawBtn" class="btn btn-withdraw">Withdraw Funds</button>
+        
+        <div class="cooldown-timer" id="cooldownTimer"></div>
         
         <div class="ad-container">
-    <div class="ad-label">Advertisement</div>
-    <div class="ad-content">
-        <script async="async" data-cfasync="false" src="//pl27296521.profitableratecpm.com/7ee930ab7c180594a8d778ed1c7f1050/invoke.js"></script>
-        <div id="container-7ee930ab7c180594a8d778ed1c7f1050"></div>
-    </div>
-        </div>
-        <div class="ad-container">
-    <div class="ad-label">Advertisement</div>
-    <div class="ad-content">
-        <script async="async" data-cfasync="false" src="//pl27296521.profitableratecpm.com/7ee930ab7c180594a8d778ed1c7f1050/invoke.js"></script>
-        <div id="container-7ee930ab7c180594a8d778ed1c7f1050"></div>
-    </div>
-        </div>
-        
-        <div class="ad-container">
-    <div class="ad-label">Advertisement</div>
-    <div class="ad-content">
-        <script async="async" data-cfasync="false" src="//pl27296521.profitableratecpm.com/7ee930ab7c180594a8d778ed1c7f1050/invoke.js"></script>
-        <div id="container-7ee930ab7c180594a8d778ed1c7f1050"></div>
-    </div>
-        </div>
-        <div class="popup-ad" id="popupAd1" style="top: 150px; left: 50px; position: absolute; z-index: 9999; border: 1px solid #ccc; background: white; padding: 5px;">
-    <button class="popup-close" onclick="document.getElementById('popupAd1').style.display='none'" style="position: absolute; top: 2px; right: 4px; font-size: 12px;">×</button>
-    <div class="ad-content">
-        <script type='text/javascript' src='//pl27296215.profitableratecpm.com/4f/03/4b/4f034b4bfec5924ca2ce494972e5a857.js'></script>
-    </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fab fa-bitcoin"></i></div>
+                <div class="ad-text">Trade BTC with zero fees</div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fas fa-wallet"></i></div>
+                <div class="ad-text">Secure crypto wallet</div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="ad-text">Crypto trading signals</div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fas fa-gem"></i></div>
+                <div class="ad-text">NFT marketplace</div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fas fa-coins"></i></div>
+                <div class="ad-text">Staking platform</div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="ad-text">Exchange tokens</div>
+            </div>
         </div>
         
-        <div class="popup-ad" id="popupAd1" style="top: 150px; left: 50px; position: absolute; z-index: 9999; border: 1px solid #ccc; background: white; padding: 5px;">
-    <button class="popup-close" onclick="document.getElementById('popupAd1').style.display='none'" style="position: absolute; top: 2px; right: 4px; font-size: 12px;">×</button>
-    <div class="ad-content">
-        <script type='text/javascript' src='//pl27296215.profitableratecpm.com/4f/03/4b/4f034b4bfec5924ca2ce494972e5a857.js'></script>
-    </div>
+        <div class="ad-overlay" id="overlayAd">
+            <button class="ad-overlay-close">×</button>
+            <div class="ad-overlay-content">
+                <i class="fas fa-gift" style="font-size: 24px; margin-bottom: 8px;"></i>
+                <div>Special Offer: Double your first deposit!</div>
+                <div style="font-size: 12px; margin-top: 5px;">Limited time only</div>
+            </div>
         </div>
         
-        <div class="ad-overlay">    
-    <div class="popup-ad" style="width: 468px; height: 60px; position: relative;">
-        <button class="popup-close" style="position: absolute; top: -10px; right: -10px; background: #000; color: #fff; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;">×</button>    
-        <div class="ad-content">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '65061bc0f1db511da3adbcef3629d150',
-                    'format' : 'iframe',
-                    'height' : 60,
-                    'width' : 468,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/65061bc0f1db511da3adbcef3629d150/invoke.js"></script>
-        </div>    
-    </div>    
+        <div class="footer">
+            <p>© 2023 CryptoReward. All rights reserved.</p>
+            <p>This is a simulation site for demonstration purposes only.</p>
         </div>
-        
-        <a href="captcha.html" class="claim-btn" style="position: relative; z-index: 5;">Claim Reward</a>
     </div>
+    
+    <!-- Withdrawal Popup -->
+    <div class="popup-overlay" id="withdrawPopup">
+        <div class="crypto-popup">
+            <button class="popup-close" id="closeWithdraw">×</button>
+            <div class="popup-content">
+                <div class="popup-title"><i class="fas fa-wallet"></i> Withdraw Funds</div>
+                
+                <div class="withdraw-form">
+                    <div class="form-group">
+                        <label for="amount">Amount (USDT)</label>
+                        <input type="number" id="amount" class="form-control" min="5" step="0.01" placeholder="Minimum 5 USDT">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wallet">Wallet Address</label>
+                        <input type="text" id="wallet" class="form-control" placeholder="Enter your USDT wallet address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="network">Network</label>
+                        <select id="network" class="form-control">
+                            <option value="trc20">TRC-20 (Recommended)</option>
+                            <option value="erc20">ERC-20</option>
+                            <option value="bep20">BEP-20</option>
+                        </select>
+                    </div>
+                    
+                    <button id="confirmWithdraw" class="btn btn-withdraw">Confirm Withdrawal</button>
+                </div>
+                
+                <div class="info-text">
+                    Minimum withdrawal: 5 USDT<br>
+                    Processing time: 24-48 hours
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Popup -->
+    <div class="popup-overlay" id="successPopup">
+        <div class="crypto-popup">
+            <div class="popup-content">
+                <div class="popup-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="popup-title">Successfully Claimed!</div>
+                <p style="margin-bottom: 20px;">0.01 USDT has been added to your account</p>
+                <button id="closeSuccess" class="btn">Continue</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-exclamation-circle"></i> <span id="notificationText"></span>
+    </div>
+    
+    <script>
+        // Initialize variables
+        let balance = 0;
+        let lastClaimTime = null;
+        const claimCooldown = 30 * 60 * 1000; // 30 minutes in milliseconds
+        
+        // DOM Elements
+        const balanceEl = document.getElementById('balance');
+        const claimBtn = document.getElementById('claimBtn');
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        const cooldownTimer = document.getElementById('cooldownTimer');
+        const withdrawPopup = document.getElementById('withdrawPopup');
+        const closeWithdraw = document.getElementById('closeWithdraw');
+        const successPopup = document.getElementById('successPopup');
+        const closeSuccess = document.getElementById('closeSuccess');
+        const confirmWithdraw = document.getElementById('confirmWithdraw');
+        const amountInput = document.getElementById('amount');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const overlayAd = document.getElementById('overlayAd');
+        const adCloseBtn = document.querySelector('.ad-overlay-close');
+        
+        // Load data from localStorage
+        function loadData() {
+            const savedBalance = localStorage.getItem('cryptoBalance');
+            const savedTime = localStorage.getItem('lastClaimTime');
+            
+            if (savedBalance) {
+                balance = parseFloat(savedBalance);
+                updateBalance();
+            }
+            
+            if (savedTime) {
+                lastClaimTime = parseInt(savedTime);
+                updateCooldown();
+            }
+        }
+        
+        
+        // Load data from localStorage
+        function loadData() {
+            const savedBalance = localStorage.getItem('cryptoBalance');
+            const savedTime = localStorage.getItem('lastClaimTime');
+            
+            if (savedBalance) {
+                balance = parseFloat(savedBalance);
+                updateBalance();
+            }
+            
+            if (savedTime) {
+                lastClaimTime = parseInt(savedTime);
+                updateCooldown();
+            }
+        }
+        
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('cryptoBalance', balance.toString());
+            if (lastClaimTime) {
+                localStorage.setItem('lastClaimTime', lastClaimTime.toString());
+            }
+        }
+        
+        // Update balance display
+        function updateBalance() {
+            balanceEl.textContent = balance.toFixed(2);
+            saveData();
+        }
+        
+        // Update cooldown timer
+        function updateCooldown() {
+            if (!lastClaimTime) {
+                cooldownTimer.textContent = '';
+                claimBtn.disabled = false;
+                return;
+            }
+            
+            const now = Date.now();
+            const elapsed = now - lastClaimTime;
+            const remaining = claimCooldown - elapsed;
+            
+            if (remaining > 0) {
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                cooldownTimer.textContent = `Next claim available in: ${minutes}m ${seconds}s`;
+                claimBtn.disabled = true;
+                
+                // Update every second
+                setTimeout(updateCooldown, 1000);
+            } else {
+                cooldownTimer.textContent = '';
+                claimBtn.disabled = false;
+                lastClaimTime = null;
+                saveData();
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, duration = 3000) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
+        
+        // Simulate CAPTCHA verification
+        function verifyCaptcha() {
+            return new Promise((resolve) => {
+                // Simulate verification process
+                setTimeout(() => {
+                    resolve(true);
+                }, 1500);
+            });
+        }
+        
+        // Event Listeners
+        claimBtn.addEventListener('click', async function() {
+            // Show loading state
+            const originalText = claimBtn.textContent;
+            claimBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            claimBtn.disabled = true;
+            
+            try {
+                const success = await verifyCaptcha();
+                
+                if (success) {
+                    // Add reward
+                    balance += 0.01;
+                    updateBalance();
+                    
+                    // Set cooldown
+                    lastClaimTime = Date.now();
+                    updateCooldown();
+                    
+                    // Show success
+                    successPopup.classList.add('active');
+                }
+            } catch (error) {
+                showNotification('Verification failed. Please try again.');
+            } finally {
+                // Reset button
+                claimBtn.textContent = originalText;
+            }
+        });
+        
+        withdrawBtn.addEventListener('click', function() {
+            withdrawPopup.classList.add('active');
+        });
+        
+        closeWithdraw.addEventListener('click', function() {
+            withdrawPopup.classList.remove('active');
+        });
+        
+        closeSuccess.addEventListener('click', function() {
+            successPopup.classList.remove('active');
+        });
+        
+        confirmWithdraw.addEventListener('click', function() {
+            const amount = parseFloat(amountInput.value);
+            
+            if (isNaN(amount) || amount < 5) {
+                showNotification('Minimum withdrawal amount is 5 USDT');
+                return;
+            }
+            
+            if (amount > balance) {
+                showNotification('Insufficient balance');
+                return;
+            }
+            
+            // Process withdrawal
+            balance -= amount;
+            updateBalance();
+            
+            withdrawPopup.classList.remove('active');
+            showNotification(`Withdrawal request for ${amount.toFixed(2)} USDT submitted!`);
+            
+            // Clear form
+            amountInput.value = '';
+            document.getElementById('wallet').value = '';
+        });
+        
+        adCloseBtn.addEventListener('click', function() {
+            overlayAd.style.display = 'none';
+        });
+        
+        // Initialize
+        loadData();
+        updateCooldown();
+        // Position overlay ad near the claim button
+        window.addEventListener('load', function() {
+            const claimRect = claimBtn.getBoundingClientRect();
+            overlayAd.style.bottom = `${window.innerHeight - claimRect.top + 20}px`;
+            overlayAd.style.right = `${window.innerWidth - claimRect.right}px`;
+        });
+    </script>
 </body>
 </html>
+    
