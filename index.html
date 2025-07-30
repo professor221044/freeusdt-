@@ -958,6 +958,59 @@
             overlayAd.style.right = `${window.innerWidth - claimRect.right}px`;
         });
     </script>
+	<script>
+  function formatTime(ms) {
+    const mins = Math.floor(ms / 60000);
+    const secs = Math.floor((ms % 60000) / 1000);
+    return `${mins}m ${secs}s`;
+  }
+
+  function updateBalanceDisplay() {
+    const storedBalance = localStorage.getItem('balance');
+    document.getElementById('balance').innerText =
+      `Balance: ${parseFloat(storedBalance || 0).toFixed(2)} USDT`;
+  }
+
+  function updateCooldown() {
+    const lastClaim = localStorage.getItem('lastClaim');
+    if (!lastClaim) return;
+
+    const now = Date.now();
+    const diff = now - parseInt(lastClaim);
+    const cooldown = 10 * 60 * 1000; // 10 minutes
+
+    if (diff < cooldown) {
+      const timeLeft = cooldown - diff;
+      document.getElementById('claimBtn').disabled = true;
+      document.getElementById('timer').innerText = `Please wait: ${formatTime(timeLeft)}`;
+      setTimeout(updateCooldown, 1000);
+    } else {
+      document.getElementById('claimBtn').disabled = false;
+      document.getElementById('timer').innerText = '';
+    }
+  }
+
+  function claimReward() {
+    const now = Date.now();
+    localStorage.setItem('lastClaim', now.toString());
+
+    let balance = parseFloat(localStorage.getItem('balance')) || 0;
+    balance += 0.01;
+    localStorage.setItem('balance', balance.toFixed(2));
+
+    updateBalanceDisplay();
+    updateCooldown();
+  }
+
+  // On page load
+  window.onload = function () {
+    if (localStorage.getItem('balance') === null) {
+      localStorage.setItem('balance', '0');
+    }
+    updateBalanceDisplay();
+    updateCooldown();
+  };
+	</script>	    
 </body>
 </html>
     
